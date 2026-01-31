@@ -1,0 +1,52 @@
+name: Periodic Model Calibration
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  retrain:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate and Store Timestamp
+        run: |
+          ts=$(date '+%Y%m%d%H%M%S')
+          echo "$ts" > timestamp.txt
+          echo "timestamp=$ts" >> $GITHUB_ENV
+
+      - name: Retrain Model
+        run: python src/train_model.py --timestamp "${{ env.timestamp }}"
+
+      - name: Evaluate Model and Log Metrics
+        run: python src/evaluate_model.py --timestamp "${{ env.timestamp }}"
+        continue-on-error: false
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.email "66032297+jennisha29@users.noreply.github.com"
+          git config --global user.name "jennisha29"
+          git add "metrics/${{ env.timestamp }}_metrics.json"
+          if ! git diff --cached --quiet; then
+            git commit -m "Add evaluation metrics for ${{ env.timestamp }}"
+            git push
+          else
+            echo "No changes to commit."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
