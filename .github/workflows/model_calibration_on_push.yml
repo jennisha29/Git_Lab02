@@ -1,4 +1,5 @@
 name: Model Retraining on Push to Main - Github Lab 2
+run-name: Model Retraining on Push
 
 on:
   push:

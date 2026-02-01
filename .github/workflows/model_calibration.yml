@@ -1,4 +1,5 @@
-name: Periodic Model Calibration
+name: Model Calibration
+run-name: Periodic Model Calibration
 
 on:
   schedule:
