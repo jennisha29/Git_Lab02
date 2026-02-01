@@ -7,10 +7,7 @@ env/
 venv/
 .venv/
 mlruns/
-models/*
-metrics/*
-!models/.gitkeep
-!metrics/.gitkeep
+data/
 *.pickle
 timestamp.txt
 *.ipynb

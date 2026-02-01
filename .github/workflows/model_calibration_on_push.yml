@@ -18,17 +18,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: "3.9"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Generate and Store Timestamp
+      - name: Generate Timestamp
         run: |
           ts=$(date '+%Y%m%d%H%M%S')
-          echo "$ts" > timestamp.txt
           echo "timestamp=$ts" >> $GITHUB_ENV
 
       - name: Retrain Model
@@ -41,9 +42,13 @@ jobs:
         run: |
           git config --global user.email "66032297+jennisha29@users.noreply.github.com"
           git config --global user.name "jennisha29"
-          git add "metrics/${{ env.timestamp }}_metrics.json"
+
+          git add "models/model_${{ env.timestamp }}_lr_model.joblib" \
+                  "metrics/${{ env.timestamp }}_metrics.json" \
+                  "metrics/${{ env.timestamp }}_train_meta.json"
+
           if ! git diff --cached --quiet; then
-            git commit -m "Add evaluation metrics for ${{ env.timestamp }}"
+            git commit -m "Add model + metrics for ${{ env.timestamp }}"
             git push
           else
             echo "No changes to commit."

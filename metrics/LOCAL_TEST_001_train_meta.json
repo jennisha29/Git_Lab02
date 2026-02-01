@@ -1,0 +1,11 @@
+{
+  "timestamp": "LOCAL_TEST_001",
+  "model_type": "LogisticRegression",
+  "data_used": "real_csv",
+  "n_samples": 100000,
+  "n_features": 9,
+  "accuracy_preview": 0.8994,
+  "f1_preview": 0.0,
+  "model_path": "models/model_LOCAL_TEST_001_lr_model.joblib",
+  "meta_path": "metrics/LOCAL_TEST_001_train_meta.json"
+}

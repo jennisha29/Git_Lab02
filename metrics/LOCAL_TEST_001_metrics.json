@@ -1,0 +1,10 @@
+{
+  "timestamp": "LOCAL_TEST_001",
+  "model_type": "LogisticRegression",
+  "data_used": "real_csv",
+  "accuracy": 0.8994,
+  "f1_score": 0.0,
+  "n_test": 20000,
+  "model_path": "models/model_LOCAL_TEST_001_lr_model.joblib",
+  "metrics_path": "metrics/LOCAL_TEST_001_metrics.json"
+}
