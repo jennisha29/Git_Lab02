@@ -1,0 +1,10 @@
+{
+  "timestamp": "20260304024213",
+  "model_type": "LogisticRegression",
+  "data_used": "real_csv",
+  "accuracy": 0.8994,
+  "f1_score": 0.0,
+  "n_test": 20000,
+  "model_path": "models/model_20260304024213_lr_model.joblib",
+  "metrics_path": "metrics/20260304024213_metrics.json"
+}
